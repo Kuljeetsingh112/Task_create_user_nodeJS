@@ -5,6 +5,7 @@ export const fetchUserDetail = async (req, res) => {
 
     let connection = ""
     try {
+        console.log("hello")
 
         const { DB, user_id } = req.body;
         connection = pool.getConnection(DB);
