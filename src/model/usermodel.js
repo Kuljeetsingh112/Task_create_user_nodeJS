@@ -11,7 +11,7 @@ export async function Insert(DB_name, TableName, data) {
         return rows;
 
     } catch (error) {
-        throw error;
+        throw new Error(error);
 
     } finally {
 
@@ -38,7 +38,7 @@ export async function Select(DB_name, TableName, user_id = "") {
 
     } catch (error) {
 
-        throw error;
+        throw new Error(error);
 
     } finally {
 
@@ -59,7 +59,7 @@ export async function Delete(DB_name, TableName, user_id) {
         return rows;
     } catch (error) {
 
-        throw error;
+        throw new Error(error);
 
     } finally {
 
@@ -81,7 +81,7 @@ export async function Update(DB_name, TableName, data, user_id) {
         return rows;
     } catch (error) {
 
-        throw error;
+        throw new Error(error);
 
     } finally {
 

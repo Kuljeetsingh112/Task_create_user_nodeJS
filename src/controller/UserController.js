@@ -4,7 +4,7 @@ import ValidateSchema from "../checkSchema.js"
 
 const TableName = "user";
 
-export const fetchUserDetail = async (req, res) => {
+export const fetchUserDetail = async (req, res, next) => {
 
     try {
         const user_id = req.params.user_id;
@@ -13,15 +13,13 @@ export const fetchUserDetail = async (req, res) => {
         res.json({ "DB_DATA": rows })
 
     } catch (error) {
-        console.log(error)
-        res.status(500).json({ error: 'Internal Server Error' });
-
+        return next(new Error(error))
     }
 }
 
 
 
-export const addUserDetails = async (req, res) => {
+export const addUserDetails = async (req, res, next) => {
 
     const { DB, user_name, Phone_number, Location } = req.body;
     const data = {
@@ -31,20 +29,22 @@ export const addUserDetails = async (req, res) => {
     }
 
     const IsValidData = ValidateSchema(UserSchema, data)
-    if (!IsValidData) throw error
+
+    if (!IsValidData) return next(new Error("Invalid Schema", 403))
 
     try {
         const result = await Insert(DB, TableName, data)
         res.json({ id: result.insertId, user_name, Phone_number, Location });
 
     } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
 
+        return next(new Error(error))
+        // res.status(500).json({ error: 'Internal Server Error' });
     }
 }
 
 
-export const updateUserDetail = async (req, res) => {
+export const updateUserDetail = async (req, res, next) => {
 
     const user_id = req.params.user_id;
     const { DB, user_name, Phone_number, Location } = req.body
@@ -57,7 +57,9 @@ export const updateUserDetail = async (req, res) => {
 
     const IsValidData = ValidateSchema(UserSchema, data)
     if (!IsValidData) {
-        return res.status(400).json({ error: 'Invalid data' });
+
+        return next(new Error('Invalid data'));
+
     }
 
 
@@ -69,7 +71,7 @@ export const updateUserDetail = async (req, res) => {
 
     } catch (error) {
 
-        res.status(500).json({ error: 'Internal Server Error' });
+        return next(new Error(error, 500))
 
     }
 }
@@ -87,7 +89,8 @@ export const deleteUser = async (req, res) => {
 
     } catch (error) {
 
-        res.status(500).json({ error: 'Internal Server Error' });
+        return next(new Error(error))
+        // res.status(500).json({ error: 'Internal Server Error' });
 
     }
 } 
