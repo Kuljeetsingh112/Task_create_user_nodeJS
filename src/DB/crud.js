@@ -1,4 +1,6 @@
 import pool from "./connection.js";
+
+
 export const selectUser = async (query, DB_name) => {
     let connection = null;
     try {
@@ -19,7 +21,6 @@ export const selectUser = async (query, DB_name) => {
         }
     }
 }
-
 
 
 export const createUser = async (query, data, DB_name) => {
@@ -43,6 +44,8 @@ export const createUser = async (query, data, DB_name) => {
         }
     }
 }
+
+
 export const deleteUser = async (query, DB_name) => {
     let connection = ""
     try {
@@ -63,6 +66,8 @@ export const deleteUser = async (query, DB_name) => {
 
     }
 }
+
+
 export const updateUser = async (query, DB_name, data) => {
     let connection = ""
     try {

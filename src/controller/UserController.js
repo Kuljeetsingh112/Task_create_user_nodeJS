@@ -18,7 +18,6 @@ export const fetchUserDetail = async (req, res, next) => {
 }
 
 
-
 export const addUserDetails = async (req, res, next) => {
 
     const { DB, user_name, Phone_number, Location } = req.body;
