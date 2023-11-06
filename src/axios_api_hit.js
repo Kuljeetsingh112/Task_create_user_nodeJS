@@ -2,8 +2,8 @@ import axios from "axios";
 
 const data = {
 
-    "DB": "delhi1",
-    "user_name": "Nazam Singh",
+    "DB": "delhi",
+    "user_name": "Happy Singh",
     "Phone_number": 15256,
     "Location": "delhi"
 
@@ -17,16 +17,16 @@ const data = {
 // })
 
 
-// axios.delete('http://localhost:3000/api/v1/user/9',{
+// axios.delete('http://localhost:3000/api/v1/user/27',{
 //         data: {
-//           DB: 'delhi'}})
+//           DB: 'mumbai'}})
 // .then((response)=>{
 //     console.log(response.data)
 // }).catch((error)=>{
 //     console.log(error)
 // })
 
-// axios.put('http://localhost:3000/api/v1/user/7',data)
+// axios.put('http://localhost:3000/api/v1/user/8',data)
 // .then((response)=>{
 //     console.log(response.data)
 // }).catch((error)=>{
@@ -35,11 +35,8 @@ const data = {
 
 
 
-axios.get(`http://localhost:3000/api/v1/user/15`,{
-    data: {
-      DB: 'delhi'}
-    }).then((response)=>{
+axios.get(`http://localhost:3000/api/v1/user/mumbai/`).then((response) => {
     console.log(response.data)
-}).catch((error)=>{
+}).catch((error) => {
     console.log(error)
 })

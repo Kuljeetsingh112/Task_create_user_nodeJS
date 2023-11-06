@@ -1,93 +1,56 @@
-import pool from "../DB/connection.js"
+import { selectUser, createUser, deleteUser, updateUser } from "../DB/crud.js"
+
 
 export const Insert = async (DB_name, TableName, data) => {
-    let connection = null;
-    try {
 
-        connection = await pool.getConnection();
-        const DBConnection = `USE ${DB_name}`
-        await connection.query(DBConnection)
-        const [rows] = await connection.query(`INSERT INTO ${TableName} SET ?`, data);
-        return rows;
+    try {
+        const query = `INSERT INTO ${TableName} SET ?`
+        return await createUser(query, data, DB_name)
 
     } catch (error) {
         throw new Error(error);
-
-    } finally {
-
-        if (connection) {
-            connection.release()
-        }
     }
 }
 
 
 export const Select = async (DB_name, TableName, user_id = "") => {
-    let connection = null;
-    try {
-        connection = await pool.getConnection();
-        const DBConnection = `USE ${DB_name}`
-        await connection.query(DBConnection)
 
-        let query = `SELECT * FROM ${TableName}`;
+    try {
+
+        let query = `SELECT * FROM ${TableName}`
         if (user_id) {
             query += ` WHERE user_id = ${user_id}`;
         }
-        const [rows] = await connection.query(query);
+        const [rows] = await selectUser(query, DB_name);
         return rows;
 
     } catch (error) {
 
         throw new Error(error);
-
-    } finally {
-
-        if (connection) {
-            connection.release();
-        }
 
     }
 }
 
 export const Delete = async (DB_name, TableName, user_id) => {
-    let connection = ""
+
     try {
-        connection = await pool.getConnection();
-        const DBConnection = `USE ${DB_name}`
-        await connection.query(DBConnection)
-        const [rows] = await connection.query(`DELETE FROM ${TableName} WHERE user_id = ${user_id}`);
-        return rows;
+
+        const query = `DELETE FROM ${TableName} WHERE user_id = ${user_id}`
+        return await deleteUser(query, DB_name);
     } catch (error) {
-
         throw new Error(error);
-
-    } finally {
-
-        if (connection) {
-            connection.release();
-        }
-
     }
 }
 
 export const Update = async (DB_name, TableName, data, user_id) => {
 
-    let connection = ""
+
     try {
-        connection = await pool.getConnection();
-        const DBConnection = `USE ${DB_name}`
-        await connection.query(DBConnection)
-        const [rows] = await connection.query(`UPDATE ${TableName} SET ? WHERE user_id = ${user_id}`, data);
-        return rows;
+        const query = `UPDATE ${TableName} SET ? WHERE user_id = ${user_id}`
+        return await updateUser(query, DB_name, data)
+        
+
     } catch (error) {
-
         throw new Error(error);
-
-    } finally {
-
-        if (connection) {
-            connection.release();
-        }
-
     }
 }

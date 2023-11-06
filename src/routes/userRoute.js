@@ -4,10 +4,10 @@ import { updateUserDetail, deleteUser, addUserDetails, fetchUserDetail } from ".
 const router = express.Router();
 
 // Fetch user details
-router.get('/', fetchUserDetail);
+router.get('/:DB_name', fetchUserDetail);
 
 //Fetct user detials by id
-router.get('/:user_id', fetchUserDetail);
+router.get('/DB_name/:user_id', fetchUserDetail);
 
 // Add user details
 router.post('/', addUserDetails);

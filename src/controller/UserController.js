@@ -8,8 +8,7 @@ export const fetchUserDetail = async (req, res, next) => {
 
     try {
         const user_id = req.params.user_id;
-        const { DB } = req.body;
-        console.log(DB, req.body)
+        const DB = req.params.DB_name;
         const rows = await Select(DB, TableName, user_id);
         res.json({ "DB_DATA": rows })
 
@@ -29,6 +28,7 @@ export const addUserDetails = async (req, res, next) => {
         Location
     }
 
+
     const IsValidData = ValidateSchema(UserSchema, data)
 
     if (!IsValidData) return res.status(400).json({ error: 'Internal Server Error' });
@@ -38,9 +38,8 @@ export const addUserDetails = async (req, res, next) => {
         res.json({ id: result.insertId, user_name, Phone_number, Location });
 
     } catch (error) {
-
-        // return next(new Error(error))
-        res.status(500).json({ error: 'Internal Server Error' });
+        return next(new Error(error))
+        // res.status(500).json({ error: 'Internal Server Error' });
     }
 }
 
@@ -58,33 +57,24 @@ export const updateUserDetail = async (req, res, next) => {
 
     const IsValidData = ValidateSchema(UserSchema, data)
     if (!IsValidData) {
-
         return next(new Error('Invalid data'));
-
     }
-
-
     try {
-
         const result = await Update(DB, TableName, data, user_id)
         res.json({ id: user_id, user_name, Phone_number, Location, success: true, message: 'Update operation successful', result: result });
-
-
     } catch (error) {
-
         return next(new Error(error, 500))
 
     }
 }
 
 
-export const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res, next) => {
 
     try {
 
         const DB = req.body.DB;
         const user_id = req.params.user_id;
-
         await Delete(DB, TableName, user_id)
         res.json({ message: 'user details deleted successfully' });
 
