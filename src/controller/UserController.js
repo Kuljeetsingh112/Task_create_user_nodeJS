@@ -9,6 +9,7 @@ export const fetchUserDetail = async (req, res, next) => {
     try {
         const user_id = req.params.user_id;
         const { DB } = req.body;
+        console.log(DB, req.body)
         const rows = await Select(DB, TableName, user_id);
         res.json({ "DB_DATA": rows })
 
@@ -30,7 +31,7 @@ export const addUserDetails = async (req, res, next) => {
 
     const IsValidData = ValidateSchema(UserSchema, data)
 
-    if (!IsValidData) return next(new Error("Invalid Schema", 403))
+    if (!IsValidData) return res.status(400).json({ error: 'Internal Server Error' });
 
     try {
         const result = await Insert(DB, TableName, data)
@@ -38,8 +39,8 @@ export const addUserDetails = async (req, res, next) => {
 
     } catch (error) {
 
-        return next(new Error(error))
-        // res.status(500).json({ error: 'Internal Server Error' });
+        // return next(new Error(error))
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 }
 

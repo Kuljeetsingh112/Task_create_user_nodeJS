@@ -1,6 +1,6 @@
 import pool from "../DB/connection.js"
 
-export async function Insert(DB_name, TableName, data) {
+export const Insert = async (DB_name, TableName, data) => {
     let connection = null;
     try {
 
@@ -22,7 +22,7 @@ export async function Insert(DB_name, TableName, data) {
 }
 
 
-export async function Select(DB_name, TableName, user_id = "") {
+export const Select = async (DB_name, TableName, user_id = "") => {
     let connection = null;
     try {
         connection = await pool.getConnection();
@@ -49,7 +49,7 @@ export async function Select(DB_name, TableName, user_id = "") {
     }
 }
 
-export async function Delete(DB_name, TableName, user_id) {
+export const Delete = async (DB_name, TableName, user_id) => {
     let connection = ""
     try {
         connection = await pool.getConnection();
@@ -70,7 +70,7 @@ export async function Delete(DB_name, TableName, user_id) {
     }
 }
 
-export async function Update(DB_name, TableName, data, user_id) {
+export const Update = async (DB_name, TableName, data, user_id) => {
 
     let connection = ""
     try {

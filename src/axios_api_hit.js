@@ -5,16 +5,16 @@ const data = {
     "DB": "delhi1",
     "user_name": "Nazam Singh",
     "Phone_number": 15256,
-    "Location":"delhi"
+    "Location": "delhi"
 
 }
 
 
-axios.post('http://localhost:3000/api/v1/user',data).then((response)=>{
-    console.log(response.data)
-}).catch((error)=>{
-    console.log(error)
-})
+// axios.post('http://localhost:3000/api/v1/user', data).then((response) => {
+//     console.log(response.data)
+// }).catch((error) => {
+//     console.log(error)
+// })
 
 
 // axios.delete('http://localhost:3000/api/v1/user/9',{
@@ -35,11 +35,11 @@ axios.post('http://localhost:3000/api/v1/user',data).then((response)=>{
 
 
 
-// axios.get(`http://localhost:3000/api/v1/user`,{
-//     data: {
-//       DB: 'delhi'}
-//     }).then((response)=>{
-//     console.log(response.data)
-// }).catch((error)=>{
-//     console.log(error)
-// })
+axios.get(`http://localhost:3000/api/v1/user/15`,{
+    data: {
+      DB: 'delhi'}
+    }).then((response)=>{
+    console.log(response.data)
+}).catch((error)=>{
+    console.log(error)
+})
